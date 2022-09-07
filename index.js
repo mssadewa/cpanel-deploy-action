@@ -24,19 +24,17 @@ const main = async () => {
     const getDeploymentStatusEndpoint =
       baseUrl + '/VersionControlDeployment/retrieve';
 
-    // axios default config
-    axios.defaults.headers = {
-      Authorization: `cpanel ${cpanel_username}:${cpanel_token}`,
-      'Cache-Control': 'no-cache',
-      Pragma: 'no-cache',
-      Expires: '0',
-    };
-
     let updateRes = await axios.get(updateRepoEndpoint, {
       port: port,
       params: {
         repository_root,
         branch,
+      },
+      headers: {
+        Authorization: `cpanel ${cpanel_username}:${cpanel_token}`,
+        'Cache-Control': 'no-cache',
+        Pragma: 'no-cache',
+        Expires: '0',
       },
     });
     updateRes = updateRes.data;
@@ -49,6 +47,13 @@ const main = async () => {
     let startDeployRes = await axios.get(createDeploymentTaskEndpoint, {
       params: {
         repository_root,
+      },
+      headers: {
+        Authorization: `cpanel ${cpanel_username}:${cpanel_token}`,
+        Authorization: `cpanel ${cpanel_username}:${cpanel_token}`,
+        'Cache-Control': 'no-cache',
+        Pragma: 'no-cache',
+        Expires: '0',
       },
     });
     startDeployRes = startDeployRes.data;
@@ -68,8 +73,15 @@ const main = async () => {
 
     for (let i = 0; i < maxWaitSeconds; i++) {
       core.info(`polling iteration ${i}`);
-      let pollRes = await axios.get(getDeploymentStatusEndpoint);
-
+      let pollRes = await axios.get(getDeploymentStatusEndpoint, {
+        headers: {
+          Authorization: `cpanel ${cpanel_username}:${cpanel_token}`,
+          Authorization: `cpanel ${cpanel_username}:${cpanel_token}`,
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
+      });
       pollRes = pollRes.data;
       if (pollRes.errors != null) {
       }
