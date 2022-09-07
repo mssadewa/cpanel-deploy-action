@@ -25,7 +25,7 @@ const main = async () => {
       baseUrl + '/VersionControlDeployment/retrieve';
 
     // axios default config
-    axios.default.headers = {
+    axios.defaults.headers = {
       Authorization: `cpanel ${cpanel_username}:${cpanel_token}`,
       'Cache-Control': 'no-cache',
       Pragma: 'no-cache',
